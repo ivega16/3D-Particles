@@ -9,7 +9,10 @@ function draw() {
   background(0, 0, 30);
 
   //add movement by rotating
-  rotateX
+  rotateX(sin(frameCount / 6) * 360)
+  rotateY(cos(frameCount / 6) * 360)
+
+
 
   directionalLight([255], createVector(0, 0, -1))
 
