@@ -12,11 +12,12 @@ function draw() {
   rotateX(sin(frameCount / 6) * 360)
   rotateY(cos(frameCount / 6) * 360)
 
-
+  //zoom in and out
+  translate(0, 0, sin(frameCount) * 100)
 
   directionalLight([255], createVector(0, 0, -1))
 
-  if(random(1) > 0.97) {
+  if (random(1) > 0.97) {
 
     var x = random(-100, 100)
     var y = random(-100, 100)
@@ -25,22 +26,22 @@ function draw() {
     var pos = createVector(x, y, z)
 
 
-    for(var i = 0 ; i < 100; i++) {
+    for (var i = 0; i < 200; i++) {
 
       //adding randomness to colors
-      var r  = map(sin(frameCount), -1, 1, 0, 255) + random(-50, 50)
-      var r  = map(sin(frameCount /2), -1, 1, 255, 0) + random(-50, 50)
-      var r  = map(sin(frameCount /4), -1, 1, 0, 255) + random(-50, 50)
+      var r = map(sin(frameCount), -1, 1, 0, 255) + random(-50, 50)
+      var g = map(sin(frameCount / 2), -1, 1, 255, 0) + random(-50, 50)
+      var b = map(cos(frameCount / 4), -1, 1, 0, 255) + random(-50, 50)
 
       //create color object and pass to Particle obj
-      var c = color (r, g, b)
+      var c = color(r, g, b)
 
       var p = new Particle(pos, c)
       particles.push(p)
     }
   }
 
-  for (var i = particles.length - 1; i >=0; i--) {
+  for (var i = particles.length - 1; i >= 0; i--) {
     if (dist(particles[i].pos.x, particles[i].pos.y, particles[i].pos.z, 0, 0, 0) < 500) {
       particles[i].update()
       particles[i].show()
@@ -52,8 +53,8 @@ function draw() {
 
 
 class Particle {
-  constructor (pos, c) {
-    this.pos =  createVector(pos.x, pos.y, pos.z)
+  constructor(pos, c) {
+    this.pos = createVector(pos.x, pos.y, pos.z)
     this.vel = p5.Vector.random3D().normalize().mult(random(4, 6))
 
     this.c = c
@@ -65,7 +66,7 @@ class Particle {
     this.pos.add(this.vel)
   }
   show() {
-    push ()
+    push()
 
     noStroke()
     fill(this.c)
